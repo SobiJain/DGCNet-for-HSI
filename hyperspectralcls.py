@@ -15,6 +15,8 @@ from tools import train
 from thyperspectral import SSRN_network, FDSSC_network, DBMA_network, CDCNN_network, DBDA_network_MISH, FeatherNet_network, DydenseNet, \
     load_dataset, sampling, generate_iter, aa_and_each_accuracy, record_output, generate_png, FlgcdenseNet
 
+from calflops import calculate_flops
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 net_list = {"ssrn": SSRN_network, 'fdssc': FDSSC_network, 'dbma': DBMA_network, 'cdcnn': CDCNN_network,
@@ -145,6 +147,13 @@ def main():
             ELEMENT_ACC[index_iter, :] = each_acc
 
         print("--------" + net.module.name + " Training Finished-----------")
+
+        input_shape = (batch_size,1,img_rows,img_cols, img_channels)
+        flops, macs, params = calculate_flops(model=net, 
+                                              input_shape=input_shape,
+                                              output_as_string=True,
+                                              output_precision=4)
+        print("Alexnet FLOPs:%s   MACs:%s   Params:%s \n" %(flops, macs, params))
 
         record_output(OA, AA, KAPPA, ELEMENT_ACC, TRAINING_TIME, TESTING_TIME,
                       saved + '/' + net.module.name + day_str + '_' + args.dataset + 'split：' + str(TRAIN_SPLIT) + 'lr：' + str(
