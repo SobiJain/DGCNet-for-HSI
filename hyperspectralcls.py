@@ -26,13 +26,13 @@ net_list = {"ssrn": SSRN_network, 'fdssc': FDSSC_network, 'dbma': DBMA_network, 
 def parse_args():
     parser = argparse.ArgumentParser(description="data_process")
     parser.add_argument("--dataset", type=str, default="PaviaU",
-                        choices=["Indian", "PaviaU", "Pavia", "KSC", "Botswana", "Salinas"])
+                        choices=["Indian", "PaviaU", "Pavia", "KSC", "Botswana", "Salinas", "WHU_HH", "WHU_HC"])
     parser.add_argument("--model", type=str, default="flgcdenseNet",
                         choices=["ssrn", 'fdssc', 'dbma', 'cdcnn', 'dbda', 'feathernet3d', 'dydenseNet', 'flgcdenseNet'])
 
     parser.add_argument("--iter", type=int, default=2)
     parser.add_argument("--path_length", type=int, default=3)
-    parser.add_argument("--train_split", type=float, default=0.2)
+    parser.add_argument("--train_split", type=float, default=0.08)
     parser.add_argument("--num_epochs", type=int, default=200)
     parser.add_argument("--lr", type=float, default=0.0005)
     parser.add_argument("--batch_size", type=int, default=256)
@@ -63,6 +63,15 @@ def main():
 
         print('-----Importing Dataset-----')
         data_hsi, gt_hsi, TOTAL_SIZE, TRAIN_SIZE, TRAIN_SPLIT = load_dataset(args)
+
+        if(args.dataset == 'WHU_HH'):
+          data_hsi = data_hsi[700:941, :330, :]
+          gt_hsi = gt_hsi[700:941, :330]
+
+        if(args.dataset == 'WHU_HC'):
+          data_hsi = data_hsi[380:870, 43:253, :]
+          gt_hsi = gt_hsi[380:870, 43:253]
+
         print('The size of the HSI data is:', data_hsi.shape)
         image_x, image_y, BAND = data_hsi.shape
         data = data_hsi.reshape(np.prod(data_hsi.shape[:2]), np.prod(data_hsi.shape[2:]))
