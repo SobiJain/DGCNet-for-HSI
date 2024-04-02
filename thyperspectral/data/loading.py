@@ -69,6 +69,24 @@ def load_dataset(args):
         TRAIN_SPLIT = args.train_split
         TRAIN_SIZE = math.ceil(TOTAL_SIZE * TRAIN_SPLIT)
 
+    if Dataset == 'WHU_HC':
+        uHouston = sio.loadmat('/content/drive/MyDrive/Data/WHU data/WHU-Hi-HanChuan/WHU_Hi_HanChuan.mat')
+        gt_uHouston = sio.loadmat('/content/drive/MyDrive/Data/WHU data/WHU-Hi-HanChuan/WHU_Hi_HanChuan_gt.mat')
+        data_hsi = uHouston['WHU_Hi_HanChuan']
+        gt_hsi = gt_uHouston['WHU_Hi_HanChuan_gt']
+        TOTAL_SIZE = 72202
+        TRAIN_SPLIT = args.train_split
+        TRAIN_SIZE = math.ceil(TOTAL_SIZE * TRAIN_SPLIT)
+
+    if Dataset == 'WHU_HH':
+        uHouston = sio.loadmat('/content/drive/MyDrive/Data/WHU data/WHU-Hi-HongHu/WHU_Hi_HongHu.mat')
+        gt_uHouston = sio.loadmat('/content/drive/MyDrive/Data/WHU data/WHU-Hi-HongHu/WHU_Hi_HongHu_gt.mat')
+        data_hsi = uHouston['WHU_Hi_HongHu']
+        gt_hsi = gt_uHouston['WHU_Hi_HongHu_gt']
+        TOTAL_SIZE = 68879
+        TRAIN_SPLIT = args.train_split
+        TRAIN_SIZE = math.ceil(TOTAL_SIZE * TRAIN_SPLIT)
+
     return data_hsi, gt_hsi, TOTAL_SIZE, TRAIN_SIZE, TRAIN_SPLIT
 
 
@@ -184,6 +202,3 @@ def list_to_colormap(x_list):
         if item == -1:
             y[index] = np.array([0, 0, 0]) / 255.
     return y
-
-
-
