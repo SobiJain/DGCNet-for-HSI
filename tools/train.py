@@ -125,12 +125,12 @@ def train(net, train_iter, valida_iter, loss, optimizer, device, saved,epochs=30
     plt.savefig(os.path.join(saved,'train_loss.png'))
     # ls_plot = np.array(ls_plot)
 
-    test_loss = plt.subplot(224)
-    test_loss.set_title('valida_loss')
-    plt.plot(np.linspace(1, epoch, len(valida_loss_list)), valida_loss_list, color='gold')
-    plt.xlabel('epoch')
-    plt.ylabel('valida loss')
-    plt.savefig(os.path.join(saved,'test_loss.png'))
+    # test_loss = plt.subplot(224)
+    # test_loss.set_title('valida_loss')
+    # plt.plot(np.linspace(1, epoch, len(valida_loss_list)), valida_loss_list.cpu(), color='gold')
+    # plt.xlabel('epoch')
+    # plt.ylabel('valida loss')
+    # plt.savefig(os.path.join(saved,'test_loss.png'))
     # ls_plot = np.array(ls_plot)
 
     # plt.show()
