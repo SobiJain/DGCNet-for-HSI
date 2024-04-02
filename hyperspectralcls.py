@@ -32,7 +32,7 @@ def parse_args():
 
     parser.add_argument("--iter", type=int, default=2)
     parser.add_argument("--path_length", type=int, default=3)
-    parser.add_argument("--train_split", type=float, default=0.1)
+    parser.add_argument("--train_split", type=float, default=0.2)
     parser.add_argument("--num_epochs", type=int, default=200)
     parser.add_argument("--lr", type=float, default=0.0005)
     parser.add_argument("--batch_size", type=int, default=256)
@@ -107,7 +107,7 @@ def main():
             print('Train size: ', TRAIN_SIZE)
             TEST_SIZE = TOTAL_SIZE - TRAIN_SIZE
             print('Test size: ', TEST_SIZE)
-            VAL_SIZE = int(TOTAL_SIZE * 0.1)
+            VAL_SIZE = TRAIN_SIZE
             print('Validation size: ', VAL_SIZE)
 
             print('-----Selecting Small Pieces from the Original Cube Data-----')
