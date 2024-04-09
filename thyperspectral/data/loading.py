@@ -69,6 +69,15 @@ def load_dataset(args):
         TRAIN_SPLIT = args.train_split
         TRAIN_SIZE = math.ceil(TOTAL_SIZE * TRAIN_SPLIT)
 
+    if Dataset == 'HU13':
+        uHouston = mat73.loadmat('/content/drive/MyDrive/Data/Houston13.mat')
+        gt_uHouston = mat73.loadmat('/content/drive/MyDrive/Data/Houston13_7gt.mat')
+        data_hsi = uHouston['ori_data']
+        gt_hsi = gt_uHouston['map']
+        TOTAL_SIZE = 2530
+        TRAIN_SPLIT = args.train_split
+        TRAIN_SIZE = math.ceil(TOTAL_SIZE * TRAIN_SPLIT)
+
     if Dataset == 'WHU_HC':
         uHouston = sio.loadmat('/content/drive/MyDrive/Data/WHU data/WHU-Hi-HanChuan/WHU_Hi_HanChuan.mat')
         gt_uHouston = sio.loadmat('/content/drive/MyDrive/Data/WHU data/WHU-Hi-HanChuan/WHU_Hi_HanChuan_gt.mat')
